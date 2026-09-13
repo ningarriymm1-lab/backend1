@@ -60,14 +60,14 @@ HTML_TEMPLATE = '''
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Noto Sans Thai', sans-serif; }
-        body { background-color: var(--bg-main); color: var(--text-main); min-height: 100vh; padding: 30px; }
+        body { background-color: var(--bg-main); color: var(--text-main); min-height: 100vh; padding: 20px; }
         .container { max-width: 1000px; margin: 0 auto; }
-        header { margin-bottom: 25px; }
-        h1 { font-size: 32px; font-weight: 700; color: #FFFFFF; margin-bottom: 5px; }
+        header { margin-bottom: 20px; }
+        h1 { font-size: 28px; font-weight: 700; color: #FFFFFF; margin-bottom: 5px; }
         
         .editable-title {
             background: transparent; border: 1px dashed transparent; color: var(--text-sub);
-            font-size: 16px; padding: 4px 8px; border-radius: 6px; width: 100%; max-width: 400px; transition: all 0.2s;
+            font-size: 15px; padding: 4px 8px; border-radius: 6px; width: 100%; max-width: 400px; transition: all 0.2s;
         }
         .editable-title:hover, .editable-title:focus {
             background: var(--bg-card); border-color: var(--accent); color: var(--text-main); outline: none;
@@ -75,76 +75,91 @@ HTML_TEMPLATE = '''
 
         .toolbar {
             display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;
-            gap: 15px; margin-bottom: 25px; background-color: var(--bg-card); padding: 12px 20px;
+            gap: 12px; margin-bottom: 20px; background-color: var(--bg-card); padding: 12px 16px;
             border-radius: 12px; border: 1px solid var(--border);
         }
-        .toolbar-left { display: flex; align-items: center; gap: 15px; flex-wrap: wrap; flex: 1; }
-        .tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+        .toolbar-left { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; flex: 1; }
+        .tabs { display: flex; gap: 6px; flex-wrap: wrap; }
         .tab-btn {
-            background: transparent; border: none; color: var(--text-sub); padding: 8px 16px;
-            border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 500; transition: all 0.2s;
+            background: transparent; border: none; color: var(--text-sub); padding: 7px 12px;
+            border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 500; transition: all 0.2s;
         }
         .tab-btn:hover { color: var(--text-main); background: var(--bg-card-hover); }
         .tab-btn.active { background-color: var(--accent); color: #121212; font-weight: 600; }
 
-        .actions { display: flex; gap: 12px; align-items: center; }
+        .actions { display: flex; gap: 10px; align-items: center; width: 100%; justify-content: space-between; }
+        @media (min-width: 600px) {
+            .actions { width: auto; }
+        }
         .search-box {
             background: var(--bg-main); border: 1px solid var(--border); color: var(--text-main);
-            padding: 8px 14px; border-radius: 8px; font-size: 14px; outline: none; width: 200px;
+            padding: 8px 12px; border-radius: 8px; font-size: 14px; outline: none; flex: 1; max-width: 200px;
         }
         .search-box:focus { border-color: var(--accent); }
 
         .btn-primary {
-            background-color: var(--accent); color: #121212; border: none; padding: 9px 18px;
+            background-color: var(--accent); color: #121212; border: none; padding: 9px 16px;
             border-radius: 8px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px; text-decoration: none;
-            transition: transform 0.1s, background-color 0.2s; white-space: nowrap;
+            transition: transform 0.1s, background-color 0.2s; white-space: nowrap; font-size: 14px;
         }
         .btn-primary:hover { background-color: var(--accent-hover); }
         .btn-primary:active { transform: scale(0.97); }
 
-        .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+        /* ปรับให้จอมือถือแสดง 2 คอลัมน์ และจอใหญ่แสดงแบบ Grid อัตโนมัติ */
+        .grid-container { 
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 12px; 
+        }
+        @media (min-width: 640px) {
+            .grid-container { 
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
+                gap: 20px; 
+            }
+        }
+
         .card {
             background-color: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
-            padding: 16px; position: relative; transition: transform 0.2s, border-color 0.2s;
+            padding: 12px; position: relative; transition: transform 0.2s, border-color 0.2s;
             display: flex; flex-direction: column; align-items: center; text-align: center;
         }
         .card:hover { transform: translateY(-3px); border-color: var(--accent); }
-        .card-icon { font-size: 40px; margin-bottom: 12px; height: 60px; display: flex; align-items: center; justify-content: center; }
-        .card-title { font-size: 15px; font-weight: 500; color: var(--text-main); margin-bottom: 6px; width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .card-category { font-size: 12px; color: var(--text-sub); background: var(--bg-main); padding: 2px 8px; border-radius: 4px; margin-bottom: 12px; }
+        .card-icon { font-size: 32px; margin-bottom: 8px; height: 50px; display: flex; align-items: center; justify-content: center; }
+        .card-title { font-size: 14px; font-weight: 500; color: var(--text-main); margin-bottom: 4px; width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .card-category { font-size: 11px; color: var(--text-sub); background: var(--bg-main); padding: 2px 6px; border-radius: 4px; margin-bottom: 10px; }
         
-        .card-actions { display: flex; gap: 8px; width: 100%; margin-top: auto; }
-        .card-btn { padding: 6px; border-radius: 6px; border: none; font-size: 12px; cursor: pointer; font-weight: 500; display: inline-block; text-align: center; text-decoration: none;}
+        .card-actions { display: flex; gap: 6px; width: 100%; margin-top: auto; }
+        .card-btn { padding: 5px; border-radius: 6px; border: none; font-size: 11px; cursor: pointer; font-weight: 500; display: inline-block; text-align: center; text-decoration: none;}
         .btn-download { background: rgba(164, 200, 240, 0.1); color: var(--accent); flex: 1; }
         .btn-download:hover { background: var(--accent); color: #121212; }
         .btn-delete { background: rgba(242, 139, 130, 0.1); color: var(--danger); flex: 1; }
         .btn-delete:hover { background: var(--danger); color: #121212; }
 
-        .empty-state { grid-column: 1 / -1; text-align: center; padding: 50px; color: var(--text-sub); font-size: 15px; }
+        .empty-state { grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--text-sub); font-size: 14px; }
 
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.75); backdrop-filter: blur(4px); justify-content: center; align-items: center; z-index: 1000; padding: 15px; }
         .modal.active { display: flex; }
-        .modal-content { background: var(--bg-card); border: 1px solid var(--border); padding: 28px; border-radius: 16px; width: 100%; max-width: 440px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .modal-content h3 { margin-bottom: 20px; color: #fff; font-size: 20px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+        .modal-content { background: var(--bg-card); border: 1px solid var(--border); padding: 24px; border-radius: 16px; width: 100%; max-width: 440px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .modal-content h3 { margin-bottom: 16px; color: #fff; font-size: 18px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
         
-        .form-group { margin-bottom: 18px; }
-        .form-group label { display: block; font-size: 13px; color: var(--text-sub); margin-bottom: 6px; font-weight: 500; }
-        .form-control { width: 100%; background: var(--bg-main); border: 1px solid var(--border); color: var(--text-main); padding: 11px 14px; border-radius: 8px; font-size: 14px; outline: none; transition: border-color 0.2s; }
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; font-size: 12px; color: var(--text-sub); margin-bottom: 6px; font-weight: 500; }
+        .form-control { width: 100%; background: var(--bg-main); border: 1px solid var(--border); color: var(--text-main); padding: 10px 12px; border-radius: 8px; font-size: 14px; outline: none; transition: border-color 0.2s; }
         .form-control:focus { border-color: var(--accent); }
 
         .file-drop-area {
-            border: 2px dashed var(--border); border-radius: 10px; padding: 22px; text-align: center;
+            border: 2px dashed var(--border); border-radius: 10px; padding: 18px; text-align: center;
             background: var(--bg-main); cursor: pointer; transition: all 0.2s ease; position: relative;
         }
         .file-drop-area:hover { border-color: var(--accent); background: rgba(164, 200, 240, 0.03); }
         .file-drop-area input[type="file"] {
             position: absolute; left: 0; top: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer;
         }
-        .file-msg { font-size: 14px; color: var(--text-sub); pointer-events: none; }
+        .file-msg { font-size: 13px; color: var(--text-sub); pointer-events: none; }
         .file-msg span { color: var(--accent); font-weight: 500; }
 
-        .modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 25px; }
-        .btn-secondary { background: transparent; border: 1px solid var(--border); color: var(--text-main); padding: 9px 16px; border-radius: 8px; cursor: pointer; font-weight: 500; transition: background 0.2s; }
+        .modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
+        .btn-secondary { background: transparent; border: 1px solid var(--border); color: var(--text-main); padding: 8px 14px; border-radius: 8px; cursor: pointer; font-weight: 500; transition: background 0.2s; font-size: 14px; }
         .btn-secondary:hover { background: var(--bg-card-hover); }
     </style>
 </head>
